@@ -24,7 +24,7 @@ or if main its current branch:
 ``
 
 ## INTRESTING FEATURES
-This is program is actually can update itself.
+This is program is actually updating itself.
 
 for example
 ``
