@@ -7,7 +7,7 @@ GREY = "\033[90m"
 RESET = "\033[0m"
 
 def update() -> None:
-    url = "https://raw.githubusercontent.com/yourusername/yourrepo/main/vvcommit.py"
+    url = "https://raw.githubusercontent.com/Vadim-Seleznov/vvcommit/main/vvcommit.py"
     response = requests.get(url)
     if response.status_code == 200:
         script_path = os.path.realpath(sys.argv[0])
