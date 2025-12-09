@@ -9,7 +9,7 @@ GREEN = "\033[32m"
 GREY = "\033[90m"
 RESET = "\033[0m"
 
-def update() -> None:
+def update(flag: str) -> None:
     url = "https://raw.githubusercontent.com/Vadim-Seleznov/vvcommit/main/vvcommit.py"
     script_path = os.path.realpath(sys.argv[0])
     backup_path = script_path + ".bak"
@@ -20,20 +20,20 @@ def update() -> None:
         response = urllib.request.urlopen(url)
         data = response.read().decode("utf-8")
 
-        shutil.copy2(script_path, backup_path)
-        print(f"Backup created at: {backup_path}")
+        if flag == "backup":
+            shutil.copy2(script_path, backup_path)
+            print(f"{GREY}Backup created at: {backup_path}{RESET}")
 
         with open(script_path, "w", encoding="utf-8") as f:
             f.write(data)
 
-        print("Update completed successfully!")
-        print("Restart the script to use the new version.")
+        print("{GREEN}Update completed successfully!{RESET}")
 
     except Exception as e:
         print(f"Update failed: {e}")
         if os.path.exists(backup_path):
             shutil.copy2(backup_path, script_path)
-            print("Restored backup version.")
+            print("{GREEN}Restored backup version.{RESET}")
         sys.exit(1)
 
     sys.exit(0)
@@ -44,7 +44,8 @@ def usage_general() -> None:
     print(f"{GREEN}curr - git commit and push into current branch{RESET}")
     print(f"{GREEN}main - git commit and push into main{RESET}")
     print(f"{GREEN}branch - git commit and push into specific branch{RESET}")
-    printf(f"{GREEN}help - for getting help with tool{RESET}")
+    print(f"{GREEN}help - for getting help with tool{RESET}")
+    print(f"{GREEN}update - for getting newest version of tool from github! (--no-backup)optional{RESET}")
     sys.exit(1)
 
 def help() -> None:
@@ -53,6 +54,7 @@ def help() -> None:
     print(f"{GREEN}curr - git commit and push into current branch{RESET}")
     print(f"{GREEN}main - git commit and push into main{RESET}")
     print(f"{GREEN}branch - git commit and push into specific branch{RESET}")
+    print(f"{GREEN}update - for getting newest version of tool from github! (--no-backup)optional{RESET}")
     print(f"{GREEN}If you use branch request you should give extra argument with branch name{RESET}")
     print(f"{GREEN}EXAMPLE:{RESET} python ./vvcommit.py branch \"main\" \"small fix\"")
     sys.exit(0)
@@ -108,8 +110,14 @@ if __name__ == "__main__":
 
     if request == "help":
         help()
+    elif request == "update" and len(sys.argv) > 2:
+        if sys.argv[2] == "--no-backup":
+            update("no-backup")
+        else:
+            print(f"{RED}ERROR:{RESET} no such flag: {sys.argv[2]}")
+            help()
     elif request == "update":
-        update()
+        update("backup")
 
     if len(sys.argv) < 3:
         usage_general()
