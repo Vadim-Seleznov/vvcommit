@@ -7,15 +7,27 @@ GREY = "\033[90m"
 RESET = "\033[0m"
 
 def usage_general() -> None:
-    print(f"{RED}ERROR{RESET}: {GREY}usage: vvcommit.py request commit_message{RESET}")
+    print(f"{RED}ERROR{RESET}: {GREY}usage: python ./vvcommit.py request commit_message{RESET}")
     print(f"{RED}Request options:{RESET}")
     print(f"{GREEN}curr - git commit and push into current branch{RESET}")
     print(f"{GREEN}main - git commit and push into main{RESET}")
     print(f"{GREEN}branch - git commit and push into specific branch{RESET}")
+    printf(f"{GREEN}help - for getting help with tool{RESET}")
     sys.exit(1)
 
+def help() -> None:
+    print(f"{GREY}--------------------VV HELP----------{RESET}")
+    print(f"{RED}Request options:{RESET}")
+    print(f"{GREEN}curr - git commit and push into current branch{RESET}")
+    print(f"{GREEN}main - git commit and push into main{RESET}")
+    print(f"{GREEN}branch - git commit and push into specific branch{RESET}")
+    print(f"{GREEN}If you use branch request you should give extra argument with branch name{RESET}")
+    print(f"{GREEN}EXAMPLE:{RESET} python ./vvcommit.py branch \"main\" \"small fix\"")
+    sys.exit(0)
+
+
 def usage_branch() -> None:
-    print(f"{RED}ERROR{RESET}: {GREY}usage: vvcommit.py branch branch-name commit_message{RESET}")
+    print(f"{RED}ERROR{RESET}: {GREY}usage: python ./vvcommit.py branch branch-name commit_message{RESET}")
     sys.exit(1)
 
 def commit_curr(commit_message: str) -> None:
@@ -55,11 +67,21 @@ def commit_branch(branch: str, commit_message) -> None:
 
 if __name__ == "__main__":
     print("Welcome from vvcommit!")
+    
+    if len(sys.argv) < 2:
+        usage_general()
+
+    request = sys.argv[1]
+
+
+    if request == "help":
+        help()
+
     if len(sys.argv) < 3:
         usage_general()
-    
-    request = sys.argv[1]
+        
     commit_message = sys.argv[2]
+    
     if request == "branch":
         if len(sys.argv) < 4:
             usage_branch()
@@ -74,3 +96,4 @@ if __name__ == "__main__":
     else:
         print(f"{RED}ERROR:{RESET} no such request!")
         usage_general()
+
