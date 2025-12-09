@@ -6,6 +6,17 @@ GREEN = "\033[32m"
 GREY = "\033[90m"
 RESET = "\033[0m"
 
+def update() -> None:
+    url = "https://raw.githubusercontent.com/yourusername/yourrepo/main/vvcommit.py"
+    response = requests.get(url)
+    if response.status_code == 200:
+        script_path = os.path.realpath(sys.argv[0])
+        with open(script_path, "w", encoding="utf-8") as f:
+            f.write(response.text)
+        print("Updated successfully! Restart the script.")
+    else:
+        print("Failed to download update.") 
+
 def usage_general() -> None:
     print(f"{RED}ERROR{RESET}: {GREY}usage: python ./vvcommit.py request commit_message{RESET}")
     print(f"{RED}Request options:{RESET}")
@@ -76,6 +87,8 @@ if __name__ == "__main__":
 
     if request == "help":
         help()
+    elif request == "update":
+        update()
 
     if len(sys.argv) < 3:
         usage_general()
