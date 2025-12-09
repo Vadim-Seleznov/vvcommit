@@ -23,6 +23,8 @@ or if main its current branch:
   python ./vvcommit.py curr "small fix"
 ``
 
+Of course we can pull things too
+
 ## INTRESTING FEATURES
 This is program is actually updating itself.
 
@@ -39,3 +41,11 @@ also if you dont want to get .bak file you can just:
 ``
 
 this command will just update vvcommit.py
+
+Also we can initialize github repo from scratch with only 1 command
+to use this feature just copy vvcommit into yours project dir
+then go to github and create new empty repo, and now you are good to go with:
+
+``
+  python ./vvcommit.py init "GITHUB-LOGIN-HERE" "REPO-NAME-HERE"
+``
