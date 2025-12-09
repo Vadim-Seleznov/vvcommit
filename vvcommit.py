@@ -27,7 +27,7 @@ def update(flag: str) -> None:
         with open(script_path, "w", encoding="utf-8") as f:
             f.write(data)
 
-        print("{GREEN}Update completed successfully!{RESET}")
+        print(f"{GREEN}Update completed successfully!{RESET}")
 
     except Exception as e:
         print(f"Update failed: {e}")
@@ -45,7 +45,7 @@ def usage_general() -> None:
     print(f"{GREEN}main - git commit and push into main{RESET}")
     print(f"{GREEN}branch - git commit and push into specific branch{RESET}")
     print(f"{GREEN}help - for getting help with tool{RESET}")
-    print(f"{GREEN}update - for getting newest version of tool from github! (--no-backup)optional{RESET}")
+    print(f"{GREEN}update - for getting newest version of tool from github! (--no-backup for not creating .bak file){RESET}")
     sys.exit(1)
 
 def help() -> None:
@@ -54,7 +54,7 @@ def help() -> None:
     print(f"{GREEN}curr - git commit and push into current branch{RESET}")
     print(f"{GREEN}main - git commit and push into main{RESET}")
     print(f"{GREEN}branch - git commit and push into specific branch{RESET}")
-    print(f"{GREEN}update - for getting newest version of tool from github! (--no-backup)optional{RESET}")
+    print(f"{GREEN}update - for getting newest version of tool from github! (--no-backup for not creating .bak file){RESET}")
     print(f"{GREEN}If you use branch request you should give extra argument with branch name{RESET}")
     print(f"{GREEN}EXAMPLE:{RESET} python ./vvcommit.py branch \"main\" \"small fix\"")
     sys.exit(0)
