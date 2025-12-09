@@ -22,3 +22,20 @@ or if main its current branch:
 ``
   python ./vvcommit.py curr "small fix"
 ``
+
+## INTRESTING FEATURES
+This is program is actually can update itself.
+
+for example
+``
+    python ./vvcommit.py update
+``
+
+this command will update file and create .bak file with older version
+also if you dont want to get .bak file you can just:
+
+``
+    python ./vvcommit.py update --no-backup
+``
+
+this command will just update vvcommit.py

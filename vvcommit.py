@@ -100,7 +100,7 @@ def commit_branch(branch: str, commit_message) -> None:
     print(f'{GREEN}Successful commit: {commit_message} into branch: {branch}{RESET}')
 
 if __name__ == "__main__":
-    print("Welcome from vvcommit!")
+    print(f"{GREEN}Welcome from vvcommit!{RESET}")
     
     if len(sys.argv) < 2:
         usage_general()
