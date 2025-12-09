@@ -33,7 +33,7 @@ def update(flag: str) -> None:
         print(f"Update failed: {e}")
         if os.path.exists(backup_path):
             shutil.copy2(backup_path, script_path)
-            print("{GREEN}Restored backup version.{RESET}")
+            print(f"{GREEN}Restored backup version.{RESET}")
         sys.exit(1)
 
     sys.exit(0)
