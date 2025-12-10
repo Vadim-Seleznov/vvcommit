@@ -111,6 +111,7 @@ def pull(branch: str = "none") -> None:
 # to use it just go to github website create new repo
 # then use init command with yours username + repo-name
 def init(login: str, repo: str) -> None:
+    subprocess.run(["git", "init", "."])
     subprocess.run(["git", "add", "."])
     result = subprocess.run(["git", "commit", "-m", "Initial commit"])
     if result.returncode != 0:
