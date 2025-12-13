@@ -183,7 +183,7 @@ def restore_ignore() -> None:
         print(f"{GREEN}Successful added! Now just commit + push...{RESET}")
         subprocess.run(["git", "commit", "-m", "Restored vvcommit"])
         subprocess.run(["git", "push"])
-
+        sys.exit(0)
     except Exception as e:
         print(f"{RED}ERROR:{RESET} {e}")
         sys.exit(1)
