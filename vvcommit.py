@@ -214,10 +214,10 @@ def main() -> None:
         push_ex(user_login, repo)
 
     if request == "ignore":
-        if len(sys.argv) == 3:
+        if len(sys.argv) == 2:
             ignore()
-        elif len(sys.argv) == 4:
-            if sys.argv[3] == "--restore":
+        elif len(sys.argv) == 3:
+            if sys.argv[2] == "--restore":
                 restore_ignore()
             else:
                 usage("ignore --restore")
