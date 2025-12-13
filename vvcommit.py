@@ -49,6 +49,7 @@ def help() -> None:
     print(f"{GREEN}main - git commit and push into main{RESET}")
     print(f"{GREEN}branch - git commit and push into specific branch{RESET}")
     print(f"{GREEN}pull - git pull or git pull origin \"branch-name\" if you provide an argument (python ./vvcommit.py pull (optional branch name)){RESET}")
+    print(f"{GREEN}ignore - adding program to .gitignore to like \"not sharing it or something\"{RESET}")
     print(f"{GREEN}init - to init github repo in current directory from scratch with github-login and repo-name{RESET}")
     print(f"{GREEN}push-ex - pushing stuff into existing github repo using github-login and repo-name{RESET}")
     print(f"{GREEN}update - for getting newest version of tool from github! (--no-backup for not creating .bak file){RESET}")
@@ -131,6 +132,24 @@ def push_ex(login: str, repo: str) -> None:
 
     sys,exit(0)
 
+
+def ignore() -> None:
+    print(f"{GREY}Ignoring myself :< {RESET}")
+
+    try:
+        path = './.gitignore'
+        with open(path, "a") as f:
+            f.write("./vvcommit.py\n")
+            f.write("./vvcommit.py.bak\n")
+
+        print(f"{GREEN}Added to program into .gitignore succefully!{RESET}")
+
+    except Exception as e:
+        print(f"{RED}ERROR:{RESET} {e}")
+        sys.exit(1)
+
+    sys.exit(0)
+
 # MAIN FUNCTION
 def main() -> None:
     print(f"{GREEN}Welcome from vvcommit!{RESET}")
@@ -155,6 +174,9 @@ def main() -> None:
         user_login = sys.argv[2]
         repo = sys.argv[3]
         push_ex(user_login, repo)
+
+    if request == "ignore":
+        ignore()
 
     if request == "help":
         help()
