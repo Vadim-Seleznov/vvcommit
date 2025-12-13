@@ -139,8 +139,10 @@ def ignore() -> None:
     try:
         path = './.gitignore'
         with open(path, "a") as f:
-            f.write("./vvcommit.py\n")
-            f.write("./vvcommit.py.bak\n")
+            f.write("vvcommit.py\n")
+            f.write("vvcommit.py.bak\n")
+        
+        subprocess.run(["git", "rm", "--cached", "vvcommit.py", "vvcommit.py.bak"])
 
         print(f"{GREEN}Added to program into .gitignore succefully!{RESET}")
 
