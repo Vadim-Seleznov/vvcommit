@@ -133,18 +133,22 @@ def push_ex(login: str, repo: str) -> None:
 
     sys,exit(0)
 
-
 # ADD PROGRAM AND ALL OF IT FILES INTO .gitignore AND MAKE THEM NOT VISABLE
 def ignore() -> None:
     print(f"{GREY}Ignoring myself :< {RESET}")
 
     try:
         path = './.gitignore'
+        exists_bak_path = True if os.path.isfile(os.path.join("./", "vvcommit.py.bak")) else False
         with open(path, "a") as f:
             f.write("vvcommit.py\n")
-            f.write("vvcommit.py.bak\n")
+            if exists_bak_path:
+                f.write("vvcommit.py.bak\n")
         
-        subprocess.run(["git", "rm", "--cached", "vvcommit.py", "vvcommit.py.bak"])
+        if exists_bak_path:
+            subprocess.run(["git", "rm", "--cached", "vvcommit.py", "vvcommit.py.bak"])
+
+        subprocess.run(["git", "rm", "--cached", "vvcommit.py"])
 
         print(f"{GREEN}Added to program into .gitignore succefully!{RESET}")
 
