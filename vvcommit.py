@@ -180,7 +180,7 @@ def restore_ignore() -> None:
         print(f"{GREY}Trying to add files...{RESET}")
 
 
-        exists_bak_path = True if os.path.isfile(backup_path) else False
+        exists_backup_path = True if os.path.isfile(backup_path) else False
         if not exists_backup_path:
             subprocess.run(["git", "add", "-f", "vvcommit.py"])
         else:
