@@ -4,6 +4,10 @@ are in main branch. This is actually 0.0.1b version of tool, please, just wait u
 thank you!)
 
 Simple console tool written fully in python. Thats kind of thing that makes daily workflow faster.
+
+## TODO
+1. Functionality to work with branches - NOT IMPLEMENTED (only pusing and pulling)
+2. Functionality to solve some basic common github problmes - NOT IMPLEMENTED
 ## USAGE
 Just copy vvcommit.py into yours project dirrectory, then
 ``
