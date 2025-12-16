@@ -46,7 +46,6 @@ def help() -> None:
     print(f"{GREY}--------------------VV HELP----------{RESET}")
     print(f"{RED}Request options:{RESET}")
     print(f"{GREEN}curr - git commit and push into current branch{RESET}")
-    print(f"{GREEN}main - git commit and push into main{RESET}")
     print(f"{GREEN}branch - git commit and push into specific branch{RESET}")
     print(f"{GREEN}pull - git pull or git pull origin \"branch-name\" if you provide an argument (python ./vvcommit.py pull (optional branch name)){RESET}")
     print(f"{GREEN}ignore - adding program to .gitignore to like \"not sharing it or something\"{RESET}")
@@ -74,18 +73,7 @@ def commit_curr(commit_message: str) -> None:
 
     print(f'{GREEN}Successful commit{RESET}: {commit_message}')
 
-# ADD + COMMIT + PUSH STUFF INTO MAIN BRANCH
-def commit_main(commit_message: str) -> None:
-    subprocess.run(["git", "add", "."])
-
-    result = subprocess.run(["git", "commit", "-m", commit_message])
-    if result.returncode != 0:
-        print(f"{RED}Commit failed!{RESET}")
-        sys.exit(1)
-
-    subprocess.run(["git", "push", "origin", "main"])
-
-    print(f'{GREEN}Successful commit: {commit_message}{RESET}')
+    sys.exit(0)
 
 # ADD + COMMIT + PUSH STUFF INTO SPECIFIC BRANCH
 def commit_branch(branch: str, commit_message) -> None:
@@ -99,6 +87,8 @@ def commit_branch(branch: str, commit_message) -> None:
     subprocess.run(["git", "push", "origin", branch])
 
     print(f'{GREEN}Successful commit: {commit_message} into branch: {branch}{RESET}')
+
+    sys.exit(0)
 
 # PULL STUFF FROM CURRENT OR SPECIFIC BRANCH
 def pull(branch: str = "none") -> None:
@@ -263,13 +253,12 @@ def main() -> None:
     if request == "pull":
         branch = sys.argv[2]
         pull(branch)
-    elif request == "curr":
+    
+    if request == "curr":
         commit_curr(commit_message)
-    elif request == "main":
-        commit_main(commit_message)
-    else:
-        print(f"{RED}ERROR:{RESET} no such request!")
-        help()
+
+    print(f"{RED}ERROR:{RESET} no such request!")
+    help()
 
 if __name__ == "__main__":
     main()
