@@ -1,4 +1,7 @@
 ## VVCOMMIT
+(P.S IF SOMEONE IS USING THIS TOOL ALREADY, IM REALY SORRY:) CURRENTLY I DOING EVERYTHING IN 1 BRANCH, so unstable versions
+are in main branch. This is actually 0.0.1b version of tool, please, just wait until I do formal documentation and seperate dev and main branches,
+thank you!)
 Simple console tool written fully in python. Thats kind of thing that makes daily workflow faster.
 ## USAGE
 Just copy vvcommit.py into yours project dirrectory, then
