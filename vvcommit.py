@@ -234,22 +234,20 @@ def main() -> None:
 
     if request == "help":
         help()
-    elif request == "update" and len(sys.argv) > 2:
-        if sys.argv[2] == "--no-backup":
+
+    if request == "update":
+        if len(sys.argv) > 2 and sys.argv[2] == "--no-backup":
             update("no-backup")
         else:
             print(f"{RED}ERROR:{RESET} no such flag: {sys.argv[2]}")
             help()
-    elif request == "update":
-        update("backup")
-    elif request == "pull":
-        pull()
 
-    if len(sys.argv) < 3:
-        help()
+        if len(sys.argv) == 2:
+            update("backup")
+
+    if request == "pull":
+        pull()
         
-    commit_message = sys.argv[2]
-    
     if request == "branch":
         if len(sys.argv) < 4:
             usage("branch branch-name commit-message")
@@ -257,6 +255,11 @@ def main() -> None:
         branch = sys.argv[2]
         commit_message = sys.argv[3]
         commit_branch(branch, commit_message)
+
+    if len(sys.argv) < 3: usage("request commit-message")
+
+    commit_message = sys.argv[2]
+
     if request == "pull":
         branch = sys.argv[2]
         pull(branch)
