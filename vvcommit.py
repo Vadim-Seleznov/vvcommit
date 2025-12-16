@@ -12,7 +12,7 @@ RESET = "\033[0m"
 
 # UPDATE FUNCTION
 # With this function you can get newest version of script from github with only 1 command
-# also it has --no-backup flag if you dont want to save backup for older version
+# also it has --no-backup flag if you dont want to save backup with older version
 def update(flag: str) -> None:
     url = "https://raw.githubusercontent.com/Vadim-Seleznov/vvcommit/main/vvcommit.py"
     script_path = os.path.realpath(sys.argv[0])
@@ -109,7 +109,7 @@ def pull(branch: str = "none") -> None:
 
     sys.exit(0)
 
-# INIT GIT REPO FROM ABSOLUTELY FROM SCRATCH
+# INIT GIT REPO ABSOLUTELY FROM SCRATCH
 # to use it just go to github website create new repo
 # then use init command with yours username + repo-name
 def init(login: str, repo: str) -> None:
