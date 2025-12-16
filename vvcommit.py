@@ -186,6 +186,7 @@ def restore_ignore() -> None:
         else:
             subprocess.run(["git", "add", "-f", "vvcommit.py", "vvcommit.py.bak"])
         
+        subprocess.run(["git", "add", ".gitignore"])
 
         print(f"{GREEN}Successful added! Now just commit + push...{RESET}")
         subprocess.run(["git", "commit", "-m", "Restored vvcommit"])
