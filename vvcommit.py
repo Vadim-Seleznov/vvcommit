@@ -46,7 +46,7 @@ def help() -> None:
     print(f"{GREY}--------------------VV HELP----------{RESET}")
     print(f"{RED}Request options:{RESET}")
     print(f"{GREEN}curr - git commit and push into current branch{RESET}")
-    print(f"{GREEN}branch - git commit and push into specific branch{RESET}")
+    print(f"{GREEN}cbranch - git commit and push into specific branch{RESET}")
     print(f"{GREEN}pull - git pull or git pull origin \"branch-name\" if you provide an argument (python ./vvcommit.py pull (optional branch name)){RESET}")
     print(f"{GREEN}ignore - adding program to .gitignore to like \"not sharing it or something\"{RESET}")
     print(f"{GREEN}ignore --restore - to restore ignore request and add vvcommit to github again{RESET}")
