@@ -254,7 +254,7 @@ def branch_end(name: str, delete: bool = False, remote: bool = False)-> None:
         print(f"{RED}Commit failed!{RESET}")
         sys.exit(1)
 
-    print(f'{GREEN}Successful commit: {commit_message}{RESET}')
+    print(f'{GREEN}Successful commit!{RESET}')
         
     subprocess.run(["git", "switch", "main"])
     subprocess.run(["git", "pull"])
