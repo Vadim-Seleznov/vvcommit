@@ -3,6 +3,9 @@
 are in main branch. This is actually 0.0.1b version of tool, please, just wait until I do formal documentation and seperate dev and main branches,
 thank you!)
 
+# CURRENT
+VERSION OF PROGRAM IS 0.0.1a and we got dev branch, so you can use this tool with stable version from main!
+
 Simple console tool written fully in python. Thats kind of thing that makes daily workflow faster.
 
 ## TODO
