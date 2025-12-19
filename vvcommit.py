@@ -238,9 +238,9 @@ def main() -> None:
     if request == "pull":
         pull()
         
-    if request == "branch":
+    if request == "cbranch":
         if len(sys.argv) < 4:
-            usage("branch branch-name commit-message")
+            usage("cbranch branch-name commit-message")
         
         branch = sys.argv[2]
         commit_message = sys.argv[3]

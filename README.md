@@ -22,7 +22,7 @@ this program has different request so to get help with it just use:
 ## EXAMPLE
 Pushing changes into main branch with commit message = "small fix"
 ``
-  python ./vvcommit.py branch "main" "small fix"
+  python ./vvcommit.py cbranch "main" "small fix"
 ``
 
 or if main its current branch:
