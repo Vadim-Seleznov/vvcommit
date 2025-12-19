@@ -10,6 +10,29 @@ vvcommit help
 
 for getting basic help in terminal
 
+## INITIALIZATION
+
+1. With this tool you can init your github repo with one line. Just go into github page and click at "new repo". Then give it a name, description and visibility flag.
+Now you can just do:
+
+```bash
+vvcommit init github-login repo-name
+```
+
+in your terminal
+for example I want to create a repo "shop"
+so I do for example NEXT JS project and now time to create a repo for it.
+
+```bash
+vvcommit init Vadim-Seleznov shop
+```
+
+2. Of course you can also push stuff into existing repo:
+
+```bash
+vvcommit push-ex Vadim-Seleznov shop
+```
+
 ## COMMIT
 
 1. Commit without pushing:
