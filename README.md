@@ -35,3 +35,6 @@ Simple console tool written fully in python. Thats kind of thing that makes dail
 ## TODO
 1. Functionality to work with branches - BASIC IMPLEMENTATION
 2. Functionality to solve some basic common github problems - NOT IMPLEMENTED
+
+## LICENSE
+MIT
