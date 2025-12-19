@@ -10,6 +10,13 @@ GREEN = "\033[32m"
 GREY = "\033[90m"
 RESET = "\033[0m"
 
+# OTHER CONSTANTS
+BRANCH_TYPES = {
+        "f": "feature",
+        "h": "hotfix",
+        "b": "bugfix",
+        }
+
 # UPDATE FUNCTION
 # With this function you can get newest version of script from github with only 1 command
 # also it has --no-backup flag if you dont want to save backup with older version
@@ -42,6 +49,7 @@ def update(flag: str) -> None:
 
     sys.exit(0)
 
+# HELP FUNCTION TO PRINT TUTORIAL FOR REQUESTS IN TERMINAL
 def help() -> None:
     print(f"{GREY}--------------------VV HELP----------{RESET}")
     print(f"{RED}Request options:{RESET}")
@@ -50,6 +58,7 @@ def help() -> None:
     print(f"{GREEN}pull - git pull or git pull origin \"branch-name\" if you provide an argument (python ./vvcommit.py pull (optional branch name)){RESET}")
     print(f"{GREEN}ignore - adding program to .gitignore to like \"not sharing it or something\"{RESET}")
     print(f"{GREEN}ignore --restore - to restore ignore request and add vvcommit to github again{RESET}")
+    print(f"{GREEN}branch-create - to create and switch into new branch{RESET}")
     print(f"{GREEN}init - to init github repo in current directory from scratch with github-login and repo-name{RESET}")
     print(f"{GREEN}push-ex - pushing stuff into existing github repo using github-login and repo-name{RESET}")
     print(f"{GREEN}update - for getting newest version of tool from github! (--no-backup for not creating .bak file){RESET}")
@@ -57,6 +66,7 @@ def help() -> None:
     print(f"{GREEN}EXAMPLE:{RESET} python ./vvcommit.py branch \"main\" \"small fix\"")
     sys.exit(0)
 
+# THIS FUNCTION IS FOR PRINTING USAGE OF ANY REQUEST
 def usage(message: str) -> None:
     print(f'{RED}ERROR{RESET}: {GREY}usage: python ./vvcommit.py {message}{RESET}')
     sys.exit(1)
@@ -186,6 +196,33 @@ def restore_ignore() -> None:
         print(f"{RED}ERROR:{RESET} {e}")
         sys.exit(1)
 
+# FUNCTION FOR CREATING A NEW BRANCH AND SWITCHING INTO
+def branch_create(name: str, branch_type: str, user_option: str = "") -> None:
+    option: str = ""
+    if branch_type == "c":
+        if user_option != "":
+            option = user_option
+        else:
+            usage("branch-create c my-custom-option-name my-branch-name")
+
+    if not BRANCH_TYPES[branch_type]:
+        print(f'{RED}ERROR:{RESET} there is not such branch type option: {branch_type}')
+        usage("branch-create (f, h, b or c) name")
+
+    option = BRANCH_TYPES[branch_type]
+    
+    full_name = f'{option}/{name}'
+    
+    subprocess.run(["git", "switch", "main"])
+    pull("main")
+    subprocess.run(["git", "switch", "-c", full_name])
+
+    print(f'{GREEN}SUCCESSFULLY CREATED AND SWITCHED INTO: {full_name}{RESET}')
+
+    sys.exit(0)
+
+
+
 # MAIN FUNCTION
 def main() -> None:
     print(f"{GREEN}Welcome from vvcommit!{RESET}")
@@ -194,6 +231,22 @@ def main() -> None:
         usage("request")
 
     request = sys.argv[1]
+
+    if request == "branch-create":
+        if len(sys.argv) < 4:
+            usage("branch-create (f, b, h or c) name")
+
+        if sys.argv[2] == "c":
+            if len(sys.argv) != 5:
+                usage("branch-create c option-name branch-name")
+
+            user_option = sys.argv[3]
+            branch_name = sys.argv[4]
+            branch-create(branch_name, "c", user_option)
+        else:
+            branch_option = sys.argv[2]
+            branch_name = sys.argv[3]
+            branch-create(branch_name, branch_option)
 
     if request == "init":
         if len(sys.argv) != 4:
