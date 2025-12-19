@@ -54,6 +54,7 @@ def help() -> None:
     print(f"{GREY}--------------------VV HELP----------{RESET}")
     print(f"{RED}Request options:{RESET}")
     print(f"{GREEN}curr - git commit and push into current branch{RESET}")
+    print(f"{GREEN}comm - git commit into current branch without pushing{RESET}")
     print(f"{GREEN}cbranch - git commit and push into specific branch{RESET}")
     print(f"{GREEN}pull - git pull or git pull origin \"branch-name\" if you provide an argument (python ./vvcommit.py pull (optional branch name)){RESET}")
     print(f"{GREEN}ignore - adding program to .gitignore to like \"not sharing it or something\"{RESET}")
@@ -97,6 +98,19 @@ def commit_branch(branch: str, commit_message) -> None:
     subprocess.run(["git", "push", "origin", branch])
 
     print(f'{GREEN}Successful commit: {commit_message} into branch: {branch}{RESET}')
+
+    sys.exit(0)
+
+# ADD + COMMIT INTO CURRENT BRANCH WITHOUT PUSH
+def commit(commit_message: str) -> None:
+    subprocess.run(["git", "add", "."])
+
+    result = subprocess.run(["git", "commit", "-m", commit_message])
+    if result.returncode != 0:
+        print(f"{RED}Commit failed!{RESET}")
+        sys.exit(1)
+
+    print(f'{GREEN}Successful commit: {commit_message}{RESET}')
 
     sys.exit(0)
 
@@ -222,7 +236,6 @@ def branch_create(name: str, branch_type: str, user_option: str = "") -> None:
     sys.exit(0)
 
 
-
 # MAIN FUNCTION
 def main() -> None:
     print(f"{GREEN}Welcome from vvcommit!{RESET}")
@@ -231,6 +244,12 @@ def main() -> None:
         usage("request")
 
     request = sys.argv[1]
+
+    if request == "com":
+        if len(sys.argv) != 3:
+            usage("com commit-message")
+        commit_message = sys.argv[2]
+        commit(commit_message)
 
     if request == "branch-create":
         if len(sys.argv) < 4:
