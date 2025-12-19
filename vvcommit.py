@@ -60,6 +60,7 @@ def help() -> None:
     print(f"{GREEN}ignore - adding program to .gitignore to like \"not sharing it or something\"{RESET}")
     print(f"{GREEN}ignore --restore - to restore ignore request and add vvcommit to github again{RESET}")
     print(f"{GREEN}branch-create - to create and switch into new branch{RESET}")
+    print(f"{GREEN}branch-end - merge stuff from specific branch and (optional) delete it{RESET}")
     print(f"{GREEN}init - to init github repo in current directory from scratch with github-login and repo-name{RESET}")
     print(f"{GREEN}push-ex - pushing stuff into existing github repo using github-login and repo-name{RESET}")
     print(f"{GREEN}update - for getting newest version of tool from github! (--no-backup for not creating .bak file){RESET}")
@@ -248,7 +249,7 @@ def branch_end(name: str, delete: bool = False, remote: bool = False)-> None:
 
     subprocess.run(["git", "add", "."])
 
-    result = subprocess.run(["git", "commit", "-m", commit_message])
+    result = subprocess.run(["git", "commit", "-m", f'end up with branch: {name}'])
     if result.returncode != 0:
         print(f"{RED}Commit failed!{RESET}")
         sys.exit(1)
@@ -284,7 +285,7 @@ def main() -> None:
         commit_message = sys.argv[2]
         commit(commit_message)
 
-    if request == "branch_end":
+    if request == "branch-end":
         if len(sys.argv) < 3:
             usage("branch-end (delete optional) (remote optional) name (without prefix)")
 
@@ -293,19 +294,19 @@ def main() -> None:
                 usage("branch-end delete remote name (without prefix)")
 
             name = sys.argv[4]
-            branch_end(name, true, true)
+            branch_end(name, True, True)
         elif "delete" in sys.argv:
             if len(sys.argv) != 4:
                 usage("branch-end delete name (without prefix)")
 
             name = sys.argv[3]
-            branch_end(name, true, false)
+            branch_end(name, True, False)
         else:
             if len(sys.argv) != 3:
                 usage("branch-end name (without prefix)")
 
             name = sys.argv[2]
-            branch_end(name, false, false)
+            branch_end(name, False, False)
 
     if request == "branch-create":
         if len(sys.argv) < 4:
