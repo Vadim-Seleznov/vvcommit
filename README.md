@@ -6,8 +6,8 @@ thank you!)
 Simple console tool written fully in python. Thats kind of thing that makes daily workflow faster.
 
 ## TODO
-1. Functionality to work with branches - NOT IMPLEMENTED (only pusing and pulling)
-2. Functionality to solve some basic common github problmes - NOT IMPLEMENTED
+1. Functionality to work with branches - BASIC IMPLEMENTATION
+2. Functionality to solve some basic common github problems - NOT IMPLEMENTED
 ## USAGE
 Just copy vvcommit.py into yours project dirrectory, then
 ``

@@ -267,6 +267,8 @@ def branch_end(name: str, delete: bool = False, remote: bool = False)-> None:
         if remote:
             subprocess.run(["git", "push", "origin", "--delete", target_branch])
 
+    subprocess.run(["git", "push"])
+
     sys.exit(0)
 
 
