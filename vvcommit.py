@@ -250,15 +250,11 @@ def branch_end(name: str, delete: bool = False, remote: bool = False)-> None:
         print(f'{RED}ERROR:{RESET} there is no such branch!: {name}')
         sys.exit(1)
 
+    print(f"{GREEN}BRANCH: {target_branch} was found{RESET}")
     subprocess.run(["git", "add", "."])
 
-    result = subprocess.run(["git", "commit", "-m", f'end up with branch: {name}'])
-    if result.returncode != 0:
-        print(f"{RED}Commit failed!{RESET}")
-        sys.exit(1)
+    subprocess.run(["git", "commit", "-m", f'end up with branch: {name}'])
 
-    print(f'{GREEN}Successful commit!{RESET}')
-        
     subprocess.run(["git", "switch", "main"])
     subprocess.run(["git", "pull"])
 
