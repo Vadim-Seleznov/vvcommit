@@ -14,6 +14,7 @@ RESET = "\033[0m"
 BRANCH_TYPES = {
         "f": "feature",
         "h": "hotfix",
+        "e": "empty",
         "b": "bugfix",
         }
 
@@ -223,8 +224,10 @@ def branch_create(name: str, branch_type: str, user_option: str = "") -> None:
             usage("branch-create (f, h, b or c) name")
 
         option = BRANCH_TYPES[branch_type]
-
-    full_name = f"{option}/{name}"
+    if option != "empty":
+        full_name = f"{option}/{name}"
+    else:
+        full_name = name
 
     subprocess.run(["git", "switch", "main"])
     subprocess.run(["git", "pull"])
