@@ -235,6 +235,42 @@ def branch_create(name: str, branch_type: str, user_option: str = "") -> None:
 
     sys.exit(0)
 
+# FUNCTION TO MERGE ALL STUFF FROM SPECIFIC BRANCH INTO MAIN AND (OPTIONAL) DELETE THIS BRANCH
+def branch_end(name: str, delete: bool = False, remote: bool = False)-> None:
+    print(f'{GREY}Trying to find branch: {name}{RESET}')
+    result = subprocess.run(["git", "branch"], capture_output=True, text=True)
+    branches = result.stdout.splitlines()
+
+    branches = [b.strip().lstrip("* ").strip() for b in branches]
+
+    target_branch = next((b for b in branches if b.endswith(name)), None)
+
+    if not target_branch:
+        print(f'{RED}ERROR:{RESET} there is no such branch!: {name}')
+        sys.exit(1)
+
+    subprocess.run(["git", "add", "."])
+
+    result = subprocess.run(["git", "commit", "-m", commit_message])
+    if result.returncode != 0:
+        print(f"{RED}Commit failed!{RESET}")
+        sys.exit(1)
+
+    print(f'{GREEN}Successful commit: {commit_message}{RESET}')
+        
+    subprocess.run(["git", "switch", "main"])
+    subprocess.run(["git", "pull"])
+
+    subprocess.run(["git", "merge", target_branch])
+
+    if delete:
+        subprocess.run(["git", "branch", "-d", target_branch])
+    
+        if remote:
+            subprocess.run(["git", "push", "origin", "--delete", target_branch])
+
+    sys.exit(0)
+
 
 # MAIN FUNCTION
 def main() -> None:
@@ -250,6 +286,29 @@ def main() -> None:
             usage("com commit-message")
         commit_message = sys.argv[2]
         commit(commit_message)
+
+    if request == "branch_end":
+        if len(sys.argv) < 3:
+            usage("branch-end (delete optional) (remote optional) name (without prefix)")
+
+        if "delete" in sys.argv and "remote" in sys.argv:
+            if len(sys.argv) != 5:
+                usage("branch-end delete remote name (without prefix)")
+
+            name = sys.argv[4]
+            branch_end(name, true, true)
+        elif "delete" in sys.argv:
+            if len(sys.argv) != 4:
+                usage("branch-end delete name (without prefix)")
+
+            name = sys.argv[3]
+            branch_end(name, true, false)
+        else:
+            if len(sys.argv) != 3:
+                usage("branch-end name (without prefix)")
+
+            name = sys.argv[2]
+            branch_end(name, false, false)
 
     if request == "branch-create":
         if len(sys.argv) < 4:
