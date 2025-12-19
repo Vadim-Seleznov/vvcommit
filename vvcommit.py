@@ -214,7 +214,7 @@ def branch_create(name: str, branch_type: str, user_option: str = "") -> None:
     full_name = f'{option}/{name}'
     
     subprocess.run(["git", "switch", "main"])
-    pull("main")
+    subprocess.run(["git", "pull"])
     subprocess.run(["git", "switch", "-c", full_name])
 
     print(f'{GREEN}SUCCESSFULLY CREATED AND SWITCHED INTO: {full_name}{RESET}')
