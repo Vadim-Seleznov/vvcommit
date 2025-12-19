@@ -242,11 +242,11 @@ def main() -> None:
 
             user_option = sys.argv[3]
             branch_name = sys.argv[4]
-            branch-create(branch_name, "c", user_option)
+            branch_create(branch_name, "c", user_option)
         else:
             branch_option = sys.argv[2]
             branch_name = sys.argv[3]
-            branch-create(branch_name, branch_option)
+            branch_create(branch_name, branch_option)
 
     if request == "init":
         if len(sys.argv) != 4:
