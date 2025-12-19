@@ -212,27 +212,24 @@ def restore_ignore() -> None:
 
 # FUNCTION FOR CREATING A NEW BRANCH AND SWITCHING INTO
 def branch_create(name: str, branch_type: str, user_option: str = "") -> None:
-    option: str = ""
     if branch_type == "c":
-        if user_option != "":
-            option = user_option
-        else:
-            usage("branch-create c my-custom-option-name my-branch-name")
+        if not user_option:
+            usage("branch-create c option-name branch-name")
+        option = user_option
+    else:
+        if branch_type not in BRANCH_TYPES:
+            print(f'{RED}ERROR:{RESET} there is no such branch type option: {branch_type}')
+            usage("branch-create (f, h, b or c) name")
 
-    if not BRANCH_TYPES[branch_type]:
-        print(f'{RED}ERROR:{RESET} there is not such branch type option: {branch_type}')
-        usage("branch-create (f, h, b or c) name")
+        option = BRANCH_TYPES[branch_type]
 
-    option = BRANCH_TYPES[branch_type]
-    
-    full_name = f'{option}/{name}'
-    
+    full_name = f"{option}/{name}"
+
     subprocess.run(["git", "switch", "main"])
     subprocess.run(["git", "pull"])
     subprocess.run(["git", "switch", "-c", full_name])
 
     print(f'{GREEN}SUCCESSFULLY CREATED AND SWITCHED INTO: {full_name}{RESET}')
-
     sys.exit(0)
 
 # FUNCTION TO MERGE ALL STUFF FROM SPECIFIC BRANCH INTO MAIN AND (OPTIONAL) DELETE THIS BRANCH
