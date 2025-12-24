@@ -356,15 +356,14 @@ def main() -> None:
         help()
 
     if request == "update":
-        if len(sys.argv) > 2 and sys.argv[2] == "--no-backup":
-            update("no-backup")
-        else:
-            print(f"{RED}ERROR:{RESET} no such flag: {sys.argv[2]}")
-            help()
+        if len(sys.argv) >= 3:
+            if sys.argv[2] == "--no-backup":
+                update("no-backup")
+            else:
+                print(f'There is no such flag: {sys.argv[2]}')
+                help()
 
-        if len(sys.argv) == 2:
-            update("backup")
-
+        update("with-backup")
     if request == "pull":
         pull()
         
