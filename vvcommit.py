@@ -173,7 +173,7 @@ def ignore(paths: str) -> None:
         sys.exit(1)
 
 # BACKUP FUNCTION FOR ignore()
-def restore_ignore(pahts: str) -> None:
+def restore_ignore(paths: str) -> None:
     try:
         print(f"{GREY}Restore script started successfully{RESET}")
         path = "./.gitignore"
