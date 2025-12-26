@@ -151,7 +151,7 @@ def push_ex(login: str, repo: str) -> None:
 
 # ADD PROGRAM AND ALL OF IT FILES INTO .gitignore AND MAKE THEM NOT VISABLE
 def ignore(paths: str) -> None:
-    print(f"{GREY}Ignoring myself :< {RESET}")
+    print(f"{GREY}Ignoring: {paths}{RESET}")
 
     try:
         path = './.gitignore'
@@ -160,7 +160,7 @@ def ignore(paths: str) -> None:
             for el in elements:
                 f.write(f'{el}\n')
         
-        subprocess.run(["git", "rm", "--cached", elements])
+        subprocess.run(["git", "rm", "--cached", paths])
 
         print(f"{GREEN}Added to {elements} into .gitignore succefully!{RESET}")
 
@@ -177,7 +177,7 @@ def restore_ignore(pahts: str) -> None:
     try:
         print(f"{GREY}Restore script started successfully{RESET}")
         path = "./.gitignore"
-        elements: list = pahts.split(" ")
+        elements: list = paths.split(" ")
         with open(path, "r") as f:
             print(f"{GREY}Reading from .gitignore{RESET}")
             lines = f.readlines()
@@ -190,7 +190,7 @@ def restore_ignore(pahts: str) -> None:
         print(f"{GREY}Trying to add files...{RESET}")
 
 
-        subprocess.run(["git", "add", "-f", elements])
+        subprocess.run(["git", "add", "-f", paths])
         
         subprocess.run(["git", "add", ".gitignore"])
 
