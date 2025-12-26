@@ -147,27 +147,32 @@ def push_ex(login: str, repo: str) -> None:
     subprocess.run(["git", "branch", "-M", "main"])
     subprocess.run(["git", "push", "-u", "origin", "main"])
 
-    sys,exit(0)
+    sys.exit(0)
 
 # ADD PROGRAM AND ALL OF IT FILES INTO .gitignore AND MAKE THEM NOT VISABLE
 def ignore(paths: str) -> None:
     print(f"{GREY}Ignoring: {paths}{RESET}")
-
     try:
         path = './.gitignore'
         elements: list = paths.split(" ")
+        
         with open(path, "a") as f:
             for el in elements:
                 f.write(f'{el}\n')
         
-        subprocess.run(["git", "rm", "--cached", paths])
-
-        print(f"{GREEN}Added to {elements} into .gitignore succefully!{RESET}")
-
-        print(f"{GREEN}Now just commit + push...{RESET}")
+        for el in elements:
+            if os.path.isdir(el):
+                subprocess.run(["git", "rm", "-r", "--cached", el])
+            else:
+                subprocess.run(["git", "rm", "--cached", el])
+        
+        print(f"{GREEN}Added {elements} to .gitignore successfully!{RESET}")
+        print(f"{GREEN}Now committing and pushing...{RESET}")
+        
         subprocess.run(["git", "add", "."])
-        subprocess.run(["git", "commit", "-m", f"Ignored: {elements}"])
+        subprocess.run(["git", "commit", "-m", f"Ignored: {', '.join(elements)}"])
         subprocess.run(["git", "push"])
+        
         sys.exit(0)
     except Exception as e:
         print(f"{RED}ERROR:{RESET} {e}")
@@ -179,25 +184,28 @@ def restore_ignore(paths: str) -> None:
         print(f"{GREY}Restore script started successfully{RESET}")
         path = "./.gitignore"
         elements: list = paths.split(" ")
+        
         with open(path, "r") as f:
             print(f"{GREY}Reading from .gitignore{RESET}")
             lines = f.readlines()
-            with open(path, "w") as new_file:
-                for line in lines:
-                    if not line in elements:
-                        new_file.write(line)
-
+        
+        with open(path, "w") as new_file:
+            for line in lines:
+                if line.strip() not in elements:
+                    new_file.write(line)
+        
         print(f"{GREEN}Successfully removed from .gitignore: {elements}!{RESET}")
         print(f"{GREY}Trying to add files...{RESET}")
-
-
-        subprocess.run(["git", "add", "-f", paths])
+        
+        for el in elements:
+            subprocess.run(["git", "add", "-f", el])
         
         subprocess.run(["git", "add", ".gitignore"])
-
-        print(f"{GREEN}Successful added! Now just commit + push...{RESET}")
-        subprocess.run(["git", "commit", "-m", f"Restored: {elements}"])
+        print(f"{GREEN}Successfully added! Now committing and pushing...{RESET}")
+        
+        subprocess.run(["git", "commit", "-m", f"Restored: {', '.join(elements)}"])
         subprocess.run(["git", "push"])
+        
         sys.exit(0)
     except Exception as e:
         print(f"{RED}ERROR:{RESET} {e}")
