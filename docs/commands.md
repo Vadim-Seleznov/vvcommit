@@ -13,7 +13,7 @@ for getting basic help in terminal
 ## INITIALIZATION
 
 1. With this tool you can init your github repo with one line. Just go into github page and click at "new repo". Then give it a name, description and visibility flag.
-Now you can just do:
+   Now you can just do:
 
 ```bash
 vvcommit init github-login repo-name
@@ -49,7 +49,6 @@ python ./vvcommit.py com "commit message"
 
 (if you don't have an alias just write "python" every time at the start of every command)
 
-
 2. Commit and push into current branch:
 
 ```bash
@@ -73,6 +72,7 @@ vvcommit pull
 ```
 
 2. Pull a specific branch:
+
 ```bash
 vvcommit pull branch-name
 ```
@@ -86,22 +86,23 @@ vvcommit branch-create <type> <name>
 ```
 
 Example:
+
 ```bash
 vvcommit branch-create f login
 ```
 
 that will create branch feature/login
 
-| Key | Prefix |
-|-----|--------|
-| f | feature/ |
-| b | bugfix/ |
-| h | hotfix/ |
-| e | no prefix |
-| c | custom prefix |
+| Key | Prefix        |
+| --- | ------------- |
+| f   | feature/      |
+| b   | bugfix/       |
+| h   | hotfix/       |
+| e   | no prefix     |
+| c   | custom prefix |
 
 2. Branch Merge
-When ending a branch, only the suffix is required:
+   When ending a branch, only the suffix is required:
 
 ```bash
 vvcommit branch-end footer-bug
@@ -136,29 +137,22 @@ vvcommit update --no-backup
 
 ## IGNORE
 
-THIS FEATURE IS USELESS IF YOU HAVE alias
+UPDATED IN LATEST VERSION!
 
-But if you use program like this:
-you just copy vvcommit.py file into your repo and then working with tool with:
-```bash
-python ./vvcommit.py ....
-```
+Now with this request you can simply ignore things with one line
 
-this feature can help you to add vvcommit to .ignore to not "sharing" it or something.
-I just didn't want to delete this feature just because I've spent some time on it:)
-
-1. Ignoring itself
+example:
 
 ```bash
-vvcommit ignore
+vvcommit ignore "firstfile.py secondfile.c dir/"
 ```
 
-this command will add vvcommit.py and vvcommit.py.bak (if exists) into .gitignore and removes them from github repo
+this command will add this files/dirs into .gitignore, then commit + push them (later I will add feature that you can add to .gitignore without pushing and commiting)
 
-2. Restore
-
-this command will restore previous ignore request
+and you can restore them back into project with only 1 flag:
 
 ```bash
-vvcommit ignore --restore
+vvcommit ignore "firstfile.py secondfile.c dir/" --restore
 ```
+
+this command will remove this files from .gitignore and bring them back into github repo
