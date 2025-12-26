@@ -1,1 +1,4 @@
 gitignoretest.txt
+gitignoretest.txt
+dist/
+test/

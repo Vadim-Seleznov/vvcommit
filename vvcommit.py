@@ -165,6 +165,7 @@ def ignore(paths: str) -> None:
         print(f"{GREEN}Added to {elements} into .gitignore succefully!{RESET}")
 
         print(f"{GREEN}Now just commit + push...{RESET}")
+        subprocess.run(["git", "add", "."])
         subprocess.run(["git", "commit", "-m", f"Ignored: {elements}"])
         subprocess.run(["git", "push"])
         sys.exit(0)
