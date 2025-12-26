@@ -332,7 +332,7 @@ def main() -> None:
         push_ex(user_login, repo)
 
     if request == "ignore":
-        if len(sys.arv) == 3:
+        if len(sys.argv) == 3:
             elements = sys.argv[2]
             ignore(elements)
         elif len(sys.argv) == 4:
