@@ -154,6 +154,7 @@ def push_ex(login: str, repo: str) -> None:
 # ADD PROGRAM AND ALL OF IT FILES INTO .gitignore AND MAKE THEM NOT VISABLE
 def ignore(paths: str) -> None:
     print(f"{GREY}Ignoring: {paths}{RESET}")
+
     try:
         path = './.gitignore'
         elements: list = paths.split(" ")
